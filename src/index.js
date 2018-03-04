@@ -5,49 +5,47 @@ class SmartCalculator {
   }
 
   get result() {
-    let rpn = [this.init];
-    let ops = [];
+    let valueFunction = [this.init];
+    let arrayObject = [];
 
-    this.operations.forEach(function(op) {
-      // if (ops.length!=0 && (ops[ops.length - 1]).priority == op.priority){
-      //   rpn.push(ops.pop().op);
-      //   ops.push(op);
-      //   rpn.push(op.val);
+    this.operations.forEach(function(object) {
+      // if (arrayObject.length!=0 && (arrayObject[arrayObject.length - 1]).priority == object.priority){
+      //   valueFunction.push(arrayObject.pop().op);
+      //   arrayObject.push(object);
+      //   valueFunction.push(object.val);
       // }
-      // else if (ops.length!=0 && (ops[ops.length - 1]).priority > op.priority){
-      //   rpn.push(op.val);
-      //   rpn.push(op.op);
+      // else if (arrayObject.length!=0 && (arrayObject[arrayObject.length - 1]).priority > object.priority){
+      //   valueFunction.push(object.val);
+      //   valueFunction.push(object.op);
       // }
-      while (ops.length!=0 && (ops[ops.length - 1]).priority <= op.priority) {
-        rpn.push(ops.pop().op);
+      while (arrayObject.length!=0 && (arrayObject[arrayObject.length - 1]).priority <= object.priority) {
+        valueFunction.push(arrayObject.pop().op);
       }
       // else{
-      //   ops.push(op);
-      //   rpn.push(op.val);
+      //   arrayObject.push(object);
+      //   valueFunction.push(object.val);
       // }
  
-      ops.push(op);
-      rpn.push(op.val);
+      arrayObject.push(object);
+      valueFunction.push(object.val);
       
     });
     
-    console.log(ops);
 
-    while (ops.length!=0) {
-      rpn.push(ops.pop().op)
+    while (arrayObject.length!=0) {
+      valueFunction.push(arrayObject.pop().op)
     }
 
     
 
     let res = [];
-    rpn.forEach(function(token) {
+    valueFunction.forEach(function(token) {
       if (typeof token === 'function') {
         res.push(token(res.pop(), res.pop()));
       } else {
         res.push(token);
       }
     });
-    console.log(rpn);
     return res.pop();
   }
 
